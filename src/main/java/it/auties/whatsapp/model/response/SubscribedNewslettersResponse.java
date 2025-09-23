@@ -16,30 +16,36 @@ public final class SubscribedNewslettersResponse {
     }
 
     public static Optional<SubscribedNewslettersResponse> ofJson(String json) {
-        if(json == null) {
+        if (json == null) {
             return Optional.empty();
         }
+        try {
 
-        var jsonObject = JSON.parseObject(json);
-        if(jsonObject == null) {
-            return Optional.empty();
-        }
 
-        var data = jsonObject.getJSONObject("data");
-        if(data == null) {
-            return Optional.empty();
-        }
-
-        var newsletters = new ArrayList<Newsletter>(data.size());
-        for(var key : data.keySet()) {
-            var object = data.getJSONObject(key);
-            if(object != null) {
-                Newsletter.ofJson(object)
-                        .ifPresent(newsletters::add);
+            var jsonObject = JSON.parseObject(json);
+            if (jsonObject == null) {
+                return Optional.empty();
             }
+
+            var data = jsonObject.getJSONObject("data");
+            if (data == null) {
+                return Optional.empty();
+            }
+
+            var newsletters = new ArrayList<Newsletter>(data.size());
+            for (var key : data.keySet()) {
+                var object = data.getJSONObject(key);
+                if (object != null) {
+                    Newsletter.ofJson(object)
+                            .ifPresent(newsletters::add);
+                }
+            }
+            var result = new SubscribedNewslettersResponse(newsletters);
+            return Optional.of(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
         }
-        var result = new SubscribedNewslettersResponse(newsletters);
-        return Optional.of(result);
     }
 
     public List<Newsletter> newsletters() {
