@@ -6,6 +6,7 @@ module it.auties.cobalt {
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires it.auties.qr;
+
     requires static java.desktop;
 
     // Serialization (Protobuf, JSON)
