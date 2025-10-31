@@ -161,7 +161,8 @@ public final class MobileRegistration {
 
         return switch (response.errorReason()) {
             case "too_recent", "too_many", "too_many_guesses", "too_many_all_methods" ->
-                    throw new MobileRegistrationException(response, "Please wait before trying to register this phone number again");
+                    throw
+            new MobileRegistrationException(response, "Please wait before trying to register this phone number again");
             case "no_routes" ->
                     throw new MobileRegistrationException(response, "You can only register numbers that are already on Whatsapp");
             default -> {

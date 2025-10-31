@@ -17,12 +17,13 @@ public class MobileRegistrationExample {
             case 2 -> false;
             default -> throw new IllegalStateException("Unexpected value: " + scanner.nextInt());
         };
-        Whatsapp.builder()
+
+        Whatsapp apiWhats =  Whatsapp.builder()
                 .mobileClient()
-                .lastConnection()
-                // .proxy(URI.create("http://username:password@host:port/")) Remember to set an HTTP proxy
+                .newConnection()
+                // .proxy(URI.create("http://username:password@host:port/"))   to set an HTTP proxy
                 .device(CompanionDevice.ios(business)) // Make sure to select the correct account type(business or personal) or you'll get error 401
-                .register(phoneNumber, WhatsappVerificationHandler.Mobile.sms(() -> {
+                .register(phoneNumber, WhatsappVerificationHandler.Mobile.call(() -> {
                     System.out.println("Enter the verification code: ");
                     return new Scanner(System.in)
                             .nextLine()
@@ -31,7 +32,13 @@ public class MobileRegistrationExample {
                 }))
                 .addNodeReceivedListener(incoming -> System.out.printf("Received node %s%n", incoming))
                 .addNodeSentListener(outgoing -> System.out.printf("Sent node %s%n", outgoing))
-                .addLoggedInListener(api -> System.out.println("Logged in"))
+                .addLoggedInListener(api ->
+                        {
+                            System.out.println("Logged in" + api.keys().toString());
+
+                        }
+
+                )
                 .connect() // If you get error 403 o 503 the account is banned
                 .waitForDisconnection();
     }
