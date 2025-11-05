@@ -619,9 +619,9 @@ public sealed class WhatsappBuilder {
              * @return a non-null optional of whatsapp
              */
             public Optional<Whatsapp> registered() {
-//                if (!keys.registered()) {
-//                    return Optional.empty();
-//                }
+                if (!keys.registered()) {
+                    return Optional.empty();
+                }
 
                 return Optional.of(Whatsapp.builder()
                         .customClient()

@@ -23,7 +23,7 @@ public class MobileRegistrationExample {
                 .newConnection()
                 // .proxy(URI.create("http://username:password@host:port/"))   to set an HTTP proxy
                 .device(CompanionDevice.ios(business)) // Make sure to select the correct account type(business or personal) or you'll get error 401
-                .register(phoneNumber, WhatsappVerificationHandler.Mobile.call(() -> {
+                .register(phoneNumber, WhatsappVerificationHandler.Mobile.whatsapp(() -> {
                     System.out.println("Enter the verification code: ");
                     return new Scanner(System.in)
                             .nextLine()

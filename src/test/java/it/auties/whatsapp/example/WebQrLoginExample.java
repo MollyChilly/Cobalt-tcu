@@ -33,7 +33,7 @@ public class WebQrLoginExample {
 
                         }
                 )
-//                .addWebAppPrimaryFeaturesListener(features -> System.out.printf("Received features: %s%n", features))
+                .addWebAppPrimaryFeaturesListener(features -> System.out.printf("Received features: %s%n", features))
                 .addNewMessageListener((api, message) -> System.out.println(message))
                 .addContactsListener((api, contacts) -> System.out.printf("Contacts: %s%n", contacts.size()))
                 .addChatsListener((api, chats) -> System.out.printf("Chats: %s%n", chats.size()))
